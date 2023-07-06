@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ol>
+        <li>
+            <a href="/dance-floor.html">Dance floor</a>
+        </li>
+    </ol>
+
+    <script>
+        let me = {
+            name:'Amir',
+            age:14,
+            sex:'male',
+            isStudent:true,
+            changeStudentStatus:function(isActive) {
+               this.isStudent = isActive; 
+            }
+        };
+        
+        let you = {
+            name:'Jasmin',
+            age:11,
+            sex:'female',
+            isStudent:false,
+            changeStudentStatus:function(isActive) {
+               this.isStudent = isActive; 
+            }
+        };
+
+        let we = [me,you];
+        we.forEach(p=>{
+            p.changeStudentStatus(false);
+        });
+
+        we.forEach(p=>{
+            console.log(p.name,p.isStudent);
+        });
+
+        class Person {
+            name = '';
+            age = 0;
+            sex = '';
+            isStudent = false;
+            constructor(name) {
+                this.name = name;
+            }
+        }
+
+        let friend = new Person('Rustam');
+        friend.age = 49;
+        console.log(friend);
+
+        let people = new Person('People');
+        console.log(people);
+    </script>
+</body>
+</html>
