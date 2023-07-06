@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinates</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: lightgray;
+            cursor:alias;
+        }
+
+        .wrapper {
+
+            height: 100%;
+            background-color: lightgreen;
+        }
+
+        .pad {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 200px;
+            height: 200px;
+            background-color: white;
+
+        }
+
+        .tracker {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 200px;
+            height: 30px;
+        }
+
+        .point {
+            position: absolute;
+            background-color: red;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            top: 100px;
+            left: 100px;
+            animation-name: pointanimation;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes pointanimation {
+            from {
+                background-color: red;
+            }
+
+            to {
+                background-color: transparent;
+            }
+        }
+
+        .col {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 1px;
+            background-color: gray;
+            height: 100%;
+        }
+
+        .row {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            height: 1px;
+            background-color: gray;
+            width: 100%;
+
+        }
+
+        
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper"></div>
+    <div class="pad">
+        <div class="point"></div>
+    </div>
+    <div class="tracker"></div>
+
+    <script>
+        let tracker;
+        let point;
+        let cX;
+        let cY;
+        let wrapper;
+        let pad;
+        document.addEventListener('DOMContentLoaded', _ => {
+            wrapper = document.querySelector('.wrapper');
+            pad = document.querySelector('.pad');
+            point = document.querySelector('.point');
+            tracker = document.querySelector('.tracker');
+            cX = document.body.clientWidth / 200;
+            cY = document.body.clientHeight / 200;
+            document.body.addEventListener('mousemove', onMouseMove);
+            addWrapperLines();
+            addPadLines();
+        });
+        function onMouseMove(event) {
+            setTracker(event);
+            setPoint(event);
+        };
+        function setTracker(event) {
+            let c = `X = ${event.clientX}, Y = ${event.clientY}`;
+            tracker.textContent = c;
+        }
+        function setPoint(event) {
+            let pX = event.clientX / cX;
+            let pY = event.clientY / cY;
+            point.style.left = pX + 'px';
+            point.style.top = pY + 'px';
+        }
+        function addWrapperLines() {
+            let colNums = 8;
+            let rowNums = 8;
+            let zoneW = document.body.clientWidth / (colNums + 1);
+            let zoneH = document.body.clientHeight / (rowNums + 1);
+            for (let c = 0; c < colNums; c++) {
+                let d = document.createElement('DIV');
+                d.classList.add('col');
+                d.style.left = (c + 1) * zoneW + "px";
+
+                wrapper.append(d);
+            }
+            for (let c = 0; c < rowNums; c++) {
+                let d = document.createElement('DIV');
+                d.classList.add('row');
+                d.style.top = (c + 1) * zoneH + "px";
+
+                wrapper.append(d);
+            }
+        }
+
+        function addPadLines() {
+            let colNums = 8;
+            let rowNums = 8;
+            let zoneW = 200 / (colNums + 1);
+            let zoneH = 200 / (rowNums + 1);
+            for (let c = 0; c < colNums; c++) {
+                let d = document.createElement('DIV');
+                d.classList.add('col');
+                d.style.left = (c + 1) * zoneW + "px";
+
+                pad.append(d);
+            }
+            for (let c = 0; c < rowNums; c++) {
+                let d = document.createElement('DIV');
+                d.classList.add('row');
+                d.style.top = (c + 1) * zoneH + "px";
+
+                pad.append(d);
+            }
+        }
+    </script>
+</body>
+
+</html>
